@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://bootstrap-3.ru/assets/ico/favicon.ico">
+
+    <title>Blog Template for Bootstrap</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+  <style type="text/css" id="holderjs-style"></style></head>
+
+  <body>
+
+    <div class="blog-masthead navbar">
+      <div class="container">
+        
+        <div>
+          <img id="main" class="pull-right" src="{% static 'img/animals.png' %}" alt="...">
+        </div>
+        <div class="blog-nav">
+          <h1 class="blog-title bg-primary">The Bootstrap Blog</h1>
+          <p class="lead bg-primary">The official example template of creating a blog with Bootstrap.</p>
+        </div>
+      </div>
+    </div>
+    <!--<div class="relative-goBack">
+      <div class="goBack">
+        {% block goBack %} {%endblock%}
+      </div>
+    </div>-->
+ 
+<div class="container">
+      
+
+{% block posts %}  {% endblock %}
+
+</div>
+
+    <div class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'css/jquery.js' %}"></script>
+    <script src="{% static 'css/bootstrap.js' %}"></script>
+    <script src="{% static 'css/docs.js' %}"></script>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+</body></html>

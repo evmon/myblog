@@ -1,0 +1,49 @@
+{% extends 'blog_part/posts.html' %}
+{% block goBack %} 
+
+{%endblock%}
+{% block posts_detail %}  
+
+    <ul class="pagination">
+          {% if post.text|wordcount > 80 %}
+            <li><a onclick="goBack()">&laquo;</a></li>
+          {% endif %} 
+    </ul>
+
+  <div id="postlist">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="text-center">
+          <div class="row">
+            <div class="col-sm-9">
+              <h3 class="pull-left">{{post.title}}</h3>
+            </div>
+            <div class="col-sm-3">
+              <h4 class="pull-right">
+                <small>
+                  <em>{{post.published_date|date:"d M Y"}}<br>
+                  {{post.published_date|time:"H:i"}}
+                  </em>
+                </small>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+                
+      <div class="panel-body">
+
+        {{post.text|linebreaksbr}}
+      
+      </div>
+      <div class="panel-footer">
+        <span class="label label-default">{{post.title|truncatewords:"5"}}</span> <span class="label label-default">{{post.created_date}}</span> <span class="label label-default">{{post.created_date|time:"H:i"}}</span>
+      </div>
+    </div>
+  </div>
+<ul class="pagination">
+          
+            <li><a onclick="goBack()">&laquo; Back</a></li>
+         
+    </ul>
+{% endblock posts_detail %}
