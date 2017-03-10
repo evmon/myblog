@@ -12,7 +12,8 @@ from .form import PostForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
+# 5c4240a7dc8c2770a415380dd37f6f39e076afe8
+# origin2
 class PostList(ListView):
     
     model = Post
