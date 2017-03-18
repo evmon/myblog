@@ -65,8 +65,8 @@
               
             {% if not comment.approved_comment and user.is_superuser%}
                       
-                      <a class="btn btn-default" href="{% url 'blog_part:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                      <a class="btn btn-default" href="{% url 'blog_part:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                      <a class="btn btn-default" href="{% url 'blog_part:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove">REMOVE</span></a>
+                      <a class="btn btn-default" href="{% url 'blog_part:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok">APPROVE</span></a>
 
                       
                       <div class="testimonial-section"><p>{{ comment.text|linebreaks }}</p></div>

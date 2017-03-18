@@ -2,9 +2,10 @@ from django.conf.urls import url
 # from django.contrib.auth.forms import AuthenticationForm
 
 from .views import PostList, LoginFormView, LogoutView, RegisterFormView, ShowPost, add_comment, \
-					comment_approve, comment_remove
+					comment_approve, comment_remove, show_404
 
 app_name = 'blog_part'
+handler404 = 'show_404'
 
 urlpatterns = [
     url(r'^$', PostList.as_view(), name='PostList'),

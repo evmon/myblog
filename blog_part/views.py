@@ -9,14 +9,17 @@ from django.shortcuts import render_to_response, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
+
 from .models import Post, Comment
 from .form import CommentForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-# 59317a9c1512716b091ae014b2f6d4553c9afc6c
-# origin2
 
+def show_404(request):
+    
+    raise Http404
+    
 @login_required
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
