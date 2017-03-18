@@ -33,19 +33,21 @@
 
                   
 
-                  {%if post.text|wordcount > 10 %}
-                  <div class="panel-body">
-                  {{post.text|truncatewords:"10"}} <a href="{% url 'blog_part:detail' post.id %}">Read more</a>
+                  {%if post.text|wordcount > 30 %}
+                  <div class="panel-body" >
+                  <p style="text-indent: 30px; text-align: justify; ">{{post.text|truncatewords:"30"}} </p><a style="float:right" href="{% url 'blog_part:detail' post.id %}">Read more</a>
+                    <a href="{% url 'blog_part:detail' post.id %}">Comments: {{ post.approved_comments.count }}</a>
                   </div>
                   {% else %}
                   <div class="panel-body">
-                    {{post.text|truncatewords:"10"}}
+                   <p> {{post.text}} ... </p><a style="float:right" href="{% url 'blog_part:detail' post.id %}">Read more</a><a href="{% url 'blog_part:detail' post.id %}">Comments: {{ post.approved_comments.count }}</a>
                   </div>
                   {% endif %}
                   
 
                     <div class="panel-footer">
-                        <span class="label label-default">{{post.title|truncatewords:"5"}}</span> <span class="label label-default">{{post.created_date}}</span> <span class="label label-default">{{post.created_date|time:"H:i"}}</span>
+                        <span class="label label-default">{{post.title|truncatewords:"5"}}</span> <span class="label label-default">{{post.created_date}}</span>
+                         {# <span class="label label-default">{{post.created_date|time:"H:i"}}</span> #}
                     </div>
                   </div>
 
@@ -96,6 +98,7 @@
                   <div class="form-box">
                     <p> Hello, {{user.username}}! </p>
                     <a href="{% url 'blog_part:logout' %}" class="btn btn-warning btn-block login a-button" type="submit">Logout</a>
+                    <a href="{% url 'admin:index' %}" class="btn btn-warning btn-block login a-button" type="submit">Go to admin</a>
                   </div>
                 </div>
               

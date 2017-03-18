@@ -9,7 +9,7 @@
             <li><a onclick="goBack()">&laquo;</a></li>
           {% endif %} 
     </ul>
-
+{% block add_comment %}
   <div id="postlist">
     <div class="panel">
       <div class="panel-heading">
@@ -21,8 +21,9 @@
             <div class="col-sm-3">
               <h4 class="pull-right">
                 <small>
-                  <em>{{post.published_date|date:"d M Y"}}<br>
-                  {{post.published_date|time:"H:i"}}
+                  <em>
+                  {# {{post.published_date|date:"d M Y"}}<br> #}
+                  {# {{post.published_date|time:"H:i"}} #}
                   </em>
                 </small>
               </h4>
@@ -37,13 +38,73 @@
       
       </div>
       <div class="panel-footer">
-        <span class="label label-default">{{post.title|truncatewords:"5"}}</span> <span class="label label-default">{{post.created_date}}</span> <span class="label label-default">{{post.created_date|time:"H:i"}}</span>
+        <span class="label label-default">{{post.title|truncatewords:"5"}}</span> 
+        <span class="label label-default">{{post.created_date}}</span> 
+        
       </div>
     </div>
   </div>
 <ul class="pagination">
-          
-            <li><a onclick="goBack()">&laquo; Back</a></li>
-         
-    </ul>
+    <li><a class="btn" onclick="goBack()">&laquo; Back</a></li>
+</ul>
+
+  <div style="">
+    <div style="float:left" class="col-sm-4"><h1 class="text-left" >Comments</h1></div>
+      <div class="col-sm-3" style="float:right; padding-left: 0px;">
+        <a href="{% url 'blog_part:add-comment' pk=post.pk %}"  
+         class="btn btn-info btn-block a-button" style="margin: auto" type="submit">Add comment</a>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+
+    <hr>
+      {% for comment in post.comments.all %}
+        {% if user.is_authenticated or comment.approved_comment%}
+          <div id="tb-testimonial" class="testimonial testimonial-default">
+              
+            {% if not comment.approved_comment and user.is_superuser%}
+                      
+                      <a class="btn btn-default" href="{% url 'blog_part:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                      <a class="btn btn-default" href="{% url 'blog_part:comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+
+                      
+                      <div class="testimonial-section"><p>{{ comment.text|linebreaks }}</p></div>
+                      <div class="testimonial-desc">
+                      <img src="https://placeholdit.imgix.net/~text?txtsize=9&txt=100%C3%97100&w=100&h=100" alt="" />
+                      <div class="testimonial-writer">
+                      <div class="testimonial-writer-name"><strong>{{ comment.author }}</strong></div>
+                      <div class="date">{{ comment.created_date }}</div>
+                        </div>
+                        </div>   
+
+            {% endif %}
+            {% if comment.approved_comment %}
+              <div class="testimonial-section">
+                
+                <p>{{ comment.text|linebreaks }}</p></div>
+                <div class="testimonial-desc">
+                      <img src="https://placeholdit.imgix.net/~text?txtsize=9&txt=100%C3%97100&w=100&h=100" alt="" />
+                      <div class="testimonial-writer">
+                      <div class="testimonial-writer-name">
+                      <strong>{{ comment.author }}</strong></div>
+                <div class="date">{{ comment.created_date }}</div></div>
+                        </div> 
+
+            {% endif %}
+          </div>
+        {% endif %}
+        
+      {% endfor %}
+
+        {% if not comment.approved_comment and post.comments.count == 0%} 
+          <p>No comments here yet :(</p>
+        {%endif%}
+
+    </div>
+  </div>
+  {% endblock add_comment%}
 {% endblock posts_detail %}
+
+
+

@@ -6,22 +6,56 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response, redirect
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
-from .models import Post
-from .form import PostForm
+from .models import Post, Comment
+from .form import CommentForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-# 5c4240a7dc8c2770a415380dd37f6f39e076afe8
+# 59317a9c1512716b091ae014b2f6d4553c9afc6c
 # origin2
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('blog_part:detail', pk=comment.post.pk)
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post_pk = comment.post.pk
+    comment.delete()
+    return redirect('blog_part:detail', pk=post_pk)
+
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('blog_part:detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog_part/add_comment.html', {'form': form})
+
+
 class PostList(ListView):
     
     model = Post
     template_name = 'blog_part/posts.html'
     context_object_name = 'post_list'
-    paginate_by = 7
+    paginate_by = 4
     queryset = Post.objects.all().order_by('-id')
- 
+
+class CommentList(ListView):
+    form_class = CommentForm
+    template_name = "blog_part/all_comment.html"
+    queryset = Post.objects.all().order_by('-pub_date')
 
 class LoginFormView(FormView):
 
@@ -68,15 +102,15 @@ class ShowPost(DetailView):
     template_name = 'blog_part/detail.html'
     
 
+# class AddComment(CreateView):
+    
+#     model = Comment
+#     template_name = 'blog_part/add_comment.html'
+#     form_class = CommentForm
+#     # http_method_names = ['post']
 
-# class AddPost(CreateView):
-    
-#     model = Post
-#     template_name = 'blog_part/add_post.html'
-#     form_class = PostForm
-    
 #     def get_success_url(self):
-#         return '/'
+#         return reverse('blog_part:detail')
 
 #     def form_valid(self, form):
 #         self.object = form.save(commit=False)
