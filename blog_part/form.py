@@ -1,19 +1,26 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
-from .models import Post
+from .models import Comment
 
 
-class PostForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
+	
+	class Meta():
 
-	# title = forms.CharField(       
- #        widget=forms.PasswordInput(attrs={'placeholder':'Title', 'class':'form-control'}),
- #      )
- #    text = forms.TextInput(
- #        widget=forms.PasswordInput(attrs={'placeholder':'Enter the same text.', 'class':'form-control'}),
- #      )
-    class Meta:
-        model = Post
-        widget=forms.TextInput(attrs={'class':'form-control'}),
-        fields = ['title','text',]
+		model = Comment
+		fields = ['author','text',]
+		widgets = {
+			'author': forms.TextInput( attrs={'class':'form-control', 'label':'Your name',}),
+			'text': forms.TextInput( attrs={'class':'form-control', 'label':'Your message',}),
+ 			}
        
 
+# class InputForm(forms.ModelForm):
+#     class Meta:
+#         form_class = AuthenticationForm
+#         fields = ['username', 'password']
+#         widgets = {
+#             'username': forms.TextInput(attrs={'autofocus': '','placeholder':'Username', 'class':'form-control'}),
+#             'password': forms.PasswordInput(attrs={'autofocus': '','placeholder':'Password', 'class':'form-control'}),
+#         }

@@ -23,5 +23,6 @@ from blog_part.views import LogoutView, LoginFormView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    
     url(r'^', include('blog_part.urls')),
 ]

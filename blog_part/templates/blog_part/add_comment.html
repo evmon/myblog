@@ -1,0 +1,20 @@
+{% extends 'blog_part/detail.html' %}
+
+{% block add_comment %} 
+<div class="col-sm-6"><h2>Add your comment</h2></div>
+  <form class="" action="" method="POST">{% csrf_token %}
+    <div id="postlist">
+      <div class="panel ">
+        <div class="panel-body">
+        
+             
+              {{form.as_p}}
+        
+        </div>
+        
+      </div>
+      <div class="col-sm-4">
+      <button type="submit" class="btn btn-info btn-block login a-button">Add Comment</button></div>
+    </div>
+  </form>
+{% endblock add_comment %}
