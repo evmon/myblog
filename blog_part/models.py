@@ -45,4 +45,19 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        return '{0}|{1}'.format(self.author, self.text, self.approved_comment )
+        return '{0} | {1}'.format(self.author, self.text, self.approved_comment )
+
+
+class Resume(models.Model):
+
+    img = models.ImageField("Photo", upload_to='images/', help_text='', blank=True)
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=13)
+    about = models.TextField()
+    objective = models.TextField()
+    languages = models.TextField()
+    it_skill_set = models.TextField()
+
+    def __str__(self):
+        return '{0} | {1}'.format(self.name, self.email, self.it_skill_set )

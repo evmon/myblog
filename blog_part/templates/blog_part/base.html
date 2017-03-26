@@ -1,7 +1,10 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+  
+</script>
+<head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +13,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="http://bootstrap-3.ru/assets/ico/favicon.ico">
 
-    <title>Cat's stories</title>
+    <title>Daisy for you</title>
 
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
@@ -19,18 +22,50 @@
 
   <body>
 
-    <div class="blog-masthead navbar">
-      <div class="container">
+    <div style="position: relative; " class="blog-masthead">
+      <p class="crop"><img id="main" style="  z-index: 1; width: 100%; max-width: 100%;" src="{% static 'img/logo.png' %}" alt="..."></p>
+      <div style=" position: absolute; width:100%;z-index: 2;" class="container">
         
-        <div>
-          <img id="main" class="pull-right" src="{% static 'img/animals.png' %}" alt="...">
+        <div class="" style="padding-right: 55px; padding-left: 55px; ">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{% url 'blog_part:PostList' %}" class="lead bg-primary">Home</a></li>
+                    <li><a href="{% url 'blog_part:about-me' %}" class="lead bg-primary">About Me</a></li>
+                    <li><a href="{% url 'blog_part:arhives' %}" class="lead bg-primary">Arhives</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                {% if user.is_authenticated %}
+                   
+                    <li><a class="lead bg-primary">Hello, {{user.username}}</a></li>
+                    <li><a href="{% url 'admin:index' %}" class="lead bg-primary">Admin</a></li>
+                    <li><a href="{% url 'blog_part:logout' %}" class="lead bg-primary">Logout</a></li>
+                     {# <p> Hello, {{user.username}}! </p> #}
+                {% else %}
+                    <li><a href="{% url 'blog_part:login' %}" class="lead bg-primary">Login</a></li>
+                    <li><a href="{% url 'blog_part:sign-up'%}" class="lead bg-primary">Sign up</a></li>
+                {% endif %}
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+            
+            </div>
+
+
+          
+
+
+          <div style="    margin-lefet: 25%;" class=" navbar-header">
+     
+                <p class="blog-title bg-primary navbar-brand">Daisy for you</p>
+                <p style="font-size: 18px; padding: 85px 95px;" class="lead bg-primary ">Innocence and purity</p>
+      
+          </div>
         </div>
-        <div class="blog-nav">
-          <h1 class="blog-title bg-primary">The Cat's Blog</h1>
-          <p class="lead bg-primary"> I took the kitten and brought it home. It has bright green eyes and very long whiskers...
-</p>
-        </div>
+        
       </div>
+
     </div>
     <!--<div class="relative-goBack">
       <div class="goBack">
@@ -45,13 +80,13 @@
 
 </div>
 
-    <!--<div class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <div class="blog-footer">
+      <p>Copyright © monastyrna.ua , 2017 </p>
       <p>
-        <a href="#">Back to top</a>
+        <a href="">Back to top</a>
       </p>
     </div>
--->
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -64,4 +99,5 @@
         window.history.back();
       }
     </script>
+    
 </body></html>

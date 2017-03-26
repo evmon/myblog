@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from blog_part.views import LogoutView, LoginFormView
-
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 # djadmin2.default.autodiscover()
 
@@ -26,3 +26,6 @@ urlpatterns = [
     
     url(r'^', include('blog_part.urls')),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

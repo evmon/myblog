@@ -2,15 +2,15 @@ from django.shortcuts import render
 from django.views.generic import ListView, FormView, View, DetailView, CreateView
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils.usearch import get_query
 
-
-from .models import Post, Comment
+from .models import Post, Comment, Resume
 from .form import CommentForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,7 +19,25 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def show_404(request):
     
     raise Http404
-    
+
+
+def search(request):
+    query_string = ''
+    found_entries = None
+  
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['title', 'body'])
+
+        found_entries = Post.objects.filter(entry_query)
+
+    return render(request, 'search.html', {
+        'query_string': query_string,
+        'found_entries': found_entries
+    })
+
+
 @login_required
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
@@ -47,6 +65,22 @@ def add_comment(request, pk):
     return render(request, 'blog_part/add_comment.html', {'form': form})
 
 
+class AboutMe(ListView):
+
+    model = Resume
+    template_name = 'blog_part/about_me.html'
+    context_object_name = "about_me"
+    queryset = Resume.objects.all()
+
+class Arhives(ListView):
+
+    model = Post
+    template_name = 'blog_part/arhives.html'
+    context_object_name = 'arhives'
+    paginate_by = 40
+    queryset = Post.objects.all().order_by('-id')
+
+
 class PostList(ListView):
     
     model = Post
@@ -55,10 +89,13 @@ class PostList(ListView):
     paginate_by = 4
     queryset = Post.objects.all().order_by('-id')
 
+
 class CommentList(ListView):
+
     form_class = CommentForm
     template_name = "blog_part/all_comment.html"
     queryset = Post.objects.all().order_by('-pub_date')
+
 
 class LoginFormView(FormView):
 

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.utils.timezone
+from django.utils import timezone
 
 
 class Migration(migrations.Migration):
@@ -24,4 +25,29 @@ class Migration(migrations.Migration):
                 ('published_date', models.DateTimeField(blank=True, null=True)),
             ],
         ),
+        migrations.CreateModel(
+            name='Comment',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('post', models.ForeignKey('blog_part.Post', related_name='comments')),
+                ('author', models.CharField(max_length=200)),
+                ('text', models.TextField()),
+                ('created_date', models.DateTimeField(default=timezone.now)),
+                ('approved_comment', models.BooleanField(default=False)),
+            ],
+        ),
+         migrations.CreateModel(
+            name='Resume',
+            fields=[
+                ('img', models.ImageField("Photo", upload_to='images/', help_text='')),
+                ('name', models.CharField(max_length=200)),
+                ('email', models.EmailField()),
+                ('phone', models.CharField(max_length=13)),
+                ('about', models.TextField()),
+                ('objective', models.TextField()),
+                ('languages', models.TextField()),
+                ('it_skill_set', models.TextField()),
+            ],
+        ),
+        
     ]

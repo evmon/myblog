@@ -29,14 +29,27 @@ h6, .h6 {
     width: 970px;
   }
 }
-
-
+.crop{
+  float:left;
+  /*margin:.5em 10px .5em 0;*/
+  overflow:hidden; /* this is important */
+  position:relative; /* this is important too */
+  /*border:1px solid #ccc;*/
+  width:100%;
+  height:300px;
+  }
+.crop img{
+  position:absolute;
+  top:-50px;
+  /*left:-50px;*/
+  }
 /*
  * Masthead for nav
  */
 
 .blog-masthead {
   background-color: #87CEFA;
+  /*background-image: url(images/tu.jpg)*/
   box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
 }
 

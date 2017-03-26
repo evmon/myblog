@@ -1,0 +1,28 @@
+{% extends 'blog_part/posts.html' %}
+
+{% block posts_detail %} 
+
+<div id="background">
+		<div id="page">
+			
+			<div id="contents">
+				<div id="adbox" style="margin-top: 20px;">
+				{% for key in about_me%}
+				{%if key.img%}
+					<img style="max-width: 100%; float: right; margin-left: 20px;" width="200px" height="200px" width="200px" src="{{key.img.url}}" alt="IMG">
+				{%endif%}
+					<h1>{{key.name}}</h1>
+					<p style="text-indent: 30px; text-align: justify;">{{key.about}}</p>
+					<p style="text-indent: 30px; text-align: justify;">Objective: {{key.objective}}</p>
+					<p style="text-indent: 30px; text-align: justify;">Languages Known: {{key.languages}}</p>
+					<p style="text-indent: 30px; text-align: justify;">IT Skill Set: {{key.it_skill_set}}</p>
+					<p style="text-indent: 30px; text-align: justify;">Email: {{key.email}}</p>
+				{% endfor%}
+				</div>
+				
+				
+		</div>
+		
+	</div>
+	</div>
+{% endblock posts_detail %}

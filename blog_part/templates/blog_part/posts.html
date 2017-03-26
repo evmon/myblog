@@ -87,56 +87,20 @@
         
           <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module ">
-          {% if user.is_authenticated %}
-            
-
-            
-              <div class="login-container">
-                <div class="form-box-1">
-                  <div class="avatar cat">
-                    <img class="cat" src="{% static 'img/other_cat.png' %}" alt="..."></div>
-                  <div class="form-box">
-                    <p> Hello, {{user.username}}! </p>
-                    <a href="{% url 'blog_part:logout' %}" class="btn btn-warning btn-block login a-button" type="submit">Logout</a>
-                    <a href="{% url 'admin:index' %}" class="btn btn-warning btn-block login a-button" type="submit">Go to admin</a>
-                  </div>
-                </div>
-              
-             </div> 
-            {% else %}
-            <div class="login-container">
-              <div class="form-box-1">
-
-                  <a href="{% url 'blog_part:login' %}" class="btn btn-info btn-block login a-button" type="submit">Login</a>
-                  <a href="{% url 'blog_part:sign-up'%}" class="btn btn-primary btn-block sign-up a-button" type="submit">Sign up</a>
-                </div>
-              </div>
-            
-            {% endif %} 
+          
             </div>
-            <div class="sidebar-module">
-              <h4>Archives</h4>
-              <ol class="list-unstyled form-box-1">
-                <li><a href="#">January 2014</a></li>
-                <li><a href="#">December 2013</a></li>
-                <li><a href="#">November 2013</a></li>
-                <li><a href="#">October 2013</a></li>
-                <li><a href="#">September 2013</a></li>
-                <li><a href="#">August 2013</a></li>
-                <li><a href="#">July 2013</a></li>
-                <li><a href="#">June 2013</a></li>
-                <li><a href="#">May 2013</a></li>
-                <li><a href="#">April 2013</a></li>
-                <li><a href="#">March 2013</a></li>
-                <li><a href="#">February 2013</a></li>
-              </ol>
-            </div>
+           
+            
             <div class="sidebar-module">
               <h4>Elsewhere</h4>
+               <form action="/search/" method="get"> {% csrf_token %}
+                  <input type="text" name="q">
+                  <input type="submit" value="Search">
+            </form>
               <ol class="form-box-1 list-unstyled">
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li>
+                <li><a href="https://github.com/evmon">GitHub</a></li>
+                <li><a href="https://vk.com/ev_mon">VK</a></li>
+                <li><a href="https://www.facebook.com/Zheni.Sai">Facebook</a></li>
               </ol>
             </div>
             
